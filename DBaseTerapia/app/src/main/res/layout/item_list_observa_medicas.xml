@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:id="@+id/layoutObsMed">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/tvHoraObsMedica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#1c3651"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:background="@drawable/circle_for_bitacora_item"
+            android:text="9:00" />
+
+        <View
+            android:layout_width="41dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_vertical"
+            android:background="#448AAC"
+            ></View>
+
+        <View
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/solid_circle"
+            ></View>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvDetalleObsMedica"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:text="Inicio"
+        android:textStyle="bold"
+        android:textColor="#1c3651"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/linearLayout"
+        android:layout_marginStart="20dp" />
+
+
+</RelativeLayout>

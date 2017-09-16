@@ -47,7 +47,7 @@ public class BaseDeDatosPT extends SQLiteOpenHelper{
                 ConstantesDataBasePT.TABLE_OBS_TERAPIA_HORA_COMENTARIO   + " TEXT, " +
                 ConstantesDataBasePT.TABLE_OBS_TERAPIA_ESTADO            + " TEXT, " +
                 "FOREIGN KEY (" + ConstantesDataBasePT.TABLE_OBS_TERAPIA_ID_TERAPIA + ") " +
-                "REFERENCES " + ConstantesDataBasePT.TABLE_PACIENTE + "("+ConstantesDataBasePT.TABLE_PACIENTE_ID+ ")" +
+                "REFERENCES " + ConstantesDataBasePT.TABLE_PACIENTE + "("+ConstantesDataBasePT.TABLE_PACIENTE_ID + ")" +
                 ")" ;
 
 
@@ -88,6 +88,31 @@ public class BaseDeDatosPT extends SQLiteOpenHelper{
     }
 
     /*
+   * Metodo que devuelve todas las observaciones de una terapia dado su ID
+   * */
+    public ArrayList<ObservacionTerapia> obtenerTodasLasObservacionesDeUnaTerapiaPorIDTerapia(int idTerapia){
+        ArrayList<ObservacionTerapia> observacionTerapiasById = new ArrayList<>();
+
+        String query = "SELECT * FROM " + ConstantesDataBasePT.TABLE_OBS_TERAPIA + " WHERE " + ConstantesDataBasePT.TABLE_OBS_TERAPIA_ID_TERAPIA + "= " + idTerapia;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor registros = db.rawQuery(query, null);
+
+        while (registros.moveToNext()){
+            ObservacionTerapia observacionActual = new ObservacionTerapia();
+            observacionActual.setIdObservacionTerapia(registros.getInt(0));
+            observacionActual.setIdTerapia(registros.getInt(1));
+            observacionActual.setObsComentario(registros.getString(2));
+            observacionActual.setObsHoraComentario(registros.getString(3));
+            observacionActual.setObsEstado(registros.getString(4));
+
+            observacionTerapiasById.add(observacionActual);
+        }
+
+        db.close();
+        return observacionTerapiasById;
+    }
+
+    /*
     * Metodo que inserta una observacion de terapia
     * */
     public void insertarObservacionTerapia(ContentValues contentValues){
@@ -99,6 +124,14 @@ public class BaseDeDatosPT extends SQLiteOpenHelper{
     public void insertarPacientes(ContentValues contentValues){
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(ConstantesDataBasePT.TABLE_PACIENTE, null, contentValues);
+        db.close();
+    }
+
+    /// insertar comentario
+
+    public void insertarComentario(ContentValues contentValues){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert(ConstantesDataBasePT.TABLE_OBS_TERAPIA, null, contentValues);
         db.close();
     }
 }
